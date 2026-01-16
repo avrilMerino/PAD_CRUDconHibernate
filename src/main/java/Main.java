@@ -4,7 +4,6 @@ import entidades.Departamento;
 import entidades.Empleado;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,12 +15,9 @@ public class Main {
         System.out.println("3- Modificar datos de un registro existente.");
         System.out.println("4- Borrar registros de la base de datos");
         int opcion = sc.nextInt();
-
+        sc.nextLine();
         switch (opcion){
             case 1:
-                System.out.print("Emp_no: ");
-                int empNo = Integer.parseInt(sc.nextLine());
-
                 System.out.print("Nombre: ");
                 String nombre = sc.nextLine();
 
@@ -34,27 +30,43 @@ public class Main {
                 System.out.print("Salario: ");
                 BigDecimal salario = new BigDecimal(sc.nextLine());
 
-                // Departamento (FK)
-                System.out.print("Nombre departamento: ");
-                String dnombre = sc.nextLine();
+                System.out.print("Dept_no existente: ");
+                int deptNo = Integer.parseInt(sc.nextLine());
 
-                System.out.print("Localidad departamento: ");
-                String loc = sc.nextLine();
+                // OJO: el DAO debe tener un método para obtener el Departamento por id
+                Departamento d = empleadoDAO.buscarDepartamentoPorId(deptNo);
 
-                Departamento d = new Departamento(dnombre, loc);
+                if (d == null) {
+                    System.out.println("No existe departamento con id " + deptNo);
+                    break;
+                }
 
-                Empleado e = new Empleado(empNo,
-                        nombre,
-                        apellido,
-                        oficio,
-                        LocalDate.now(),
-                        salario,
-                        d
-                );
+                Empleado e1 = new Empleado(nombre, apellido, oficio, LocalDate.now(), salario, d);
 
-                empleadoDAO.insertarEmpleado(e);
+                empleadoDAO.insertarEmpleado(e1);
                 System.out.println("Empleado insertado correctamente");
+                break;
+
+            case 2:
+
+                    System.out.print("ID del empleado (emp_no): ");
+                    int id = Integer.parseInt(sc.nextLine());
+
+                    Empleado e2 = empleadoDAO.buscarPorId(id);
+
+                    if (e2 == null) {
+                        System.out.println("No existe empleado con id " + id);
+                    } else {
+                        System.out.println("Empleado encontrado:");
+                        System.out.println("ID: " + e2.getEmpNo());
+                        System.out.println("Nombre: " + e2.getNombre());
+                        System.out.println("Apellido: " + e2.getApellido());
+                        System.out.println("Oficio: " + e2.getOficio());
+                        System.out.println("Salario: " + e2.getSalario());
+                        System.out.println("Dept: " + e2.getDepartamento().getDeptNo() + " - " + e2.getDepartamento().getDnombre());
+                    }
             break;
+
         }
     }
 }

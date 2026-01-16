@@ -63,6 +63,9 @@ public class Empleado {
         this.departamento = departamento;
     }
 
+    public Empleado(int empNo, String nombre, String apellido, String oficio, LocalDate now, BigDecimal salario, Departamento d) {
+    }
+
     // Getters y setters
     public Integer getEmpNo() { return empNo; }
     public void setEmpNo(Integer empNo) { this.empNo = empNo; }

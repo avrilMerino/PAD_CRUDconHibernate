@@ -1,5 +1,6 @@
 package dao;
 
+import entidades.Departamento;
 import entidades.Empleado;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -43,7 +44,7 @@ public class EmpleadoDAO {
         Session s = null;
         try {
             s = sf().openSession();
-            return s.get(Empleado.class, id);
+            return s.find(Empleado.class, id);
         } finally {
             if (s != null) s.close();
             HibernateUtil.closeSessionFactory();
@@ -91,4 +92,14 @@ public class EmpleadoDAO {
     }
 
 
+    public Departamento buscarDepartamentoPorId(Integer id) {
+        Session s = null;
+        try {
+            s = sf().openSession();
+            return s.find(Departamento.class, id);
+        } finally {
+            if (s != null) s.close();
+            HibernateUtil.closeSessionFactory();
+        }
+    }
 }

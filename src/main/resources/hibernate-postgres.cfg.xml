@@ -9,7 +9,7 @@
         <property name="hibernate.connection.url">
             jdbc:postgresql://localhost:5433/practica
         </property>
-        <property name="hibernate.connection.username">app</property>
+        <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">oretania</property>
 
 
