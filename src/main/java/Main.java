@@ -66,6 +66,45 @@ public class Main {
                         System.out.println("Dept: " + e2.getDepartamento().getDeptNo() + " - " + e2.getDepartamento().getDnombre());
                     }
             break;
+            case 3:
+                System.out.print("ID del empleado a modificar (emp_no): ");
+
+                int idMod = Integer.parseInt(sc.nextLine());
+                Empleado eMod = empleadoDAO.buscarPorId(idMod);
+
+                if (eMod == null) {
+                    System.out.println("No existe empleado con id " + idMod);
+                    break;
+                }
+                System.out.println("Empleado actual: " + eMod.getNombre() + " " + eMod.getApellido());
+                System.out.print("Nuevo oficio (enter para no cambiar): ");
+                String nuevoOficio = sc.nextLine();
+                if (!nuevoOficio.isBlank()) {
+                    eMod.setOficio(nuevoOficio);
+                }
+
+                System.out.print("Nuevo salario (enter para no cambiar): ");
+                String salarioTxt = sc.nextLine();
+                if (!salarioTxt.isBlank()) {
+                    eMod.setSalario(new BigDecimal(salarioTxt));
+                }
+                empleadoDAO.actualizarEmpleado(eMod);
+                System.out.println("Empleado actualizado correctamente");
+            break;
+            case 4:
+                System.out.print("ID del empleado a borrar (emp_no): ");
+                int idBor = Integer.parseInt(sc.nextLine());
+
+                Empleado eBor = empleadoDAO.buscarPorId(idBor);
+
+                if (eBor == null) {
+                    System.out.println("No existe empleado con id " + idBor);
+                    break;
+                }
+
+                empleadoDAO.borrarEmpleado(eBor);
+                System.out.println("Empleado borrado correctamente");
+                break;
 
         }
     }

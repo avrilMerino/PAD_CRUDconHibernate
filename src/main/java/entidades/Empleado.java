@@ -11,8 +11,6 @@ import jakarta.persistence.JoinColumn;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
-
 /**
  * Entidad Empleado -> tabla empleados
  */

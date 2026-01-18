@@ -3,6 +3,7 @@ package entidades;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name="departamentos")
 public class Departamento {
 
     @Id // Clave primaria
